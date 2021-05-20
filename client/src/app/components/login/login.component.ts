@@ -4,6 +4,7 @@ import {MatError} from "@angular/material/form-field";
 import {AuthService} from "../../shared/services/auth.service";
 import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 import {User} from "../../shared/interfaces";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,10 @@ export class LoginComponent implements OnInit {
     this.route.queryParams.subscribe(
       (params: Params) => {
         if (params['registered']){
-          console.log('Теперь можно залогиниться')
+          this.snackBar.open('Теперь вы можете залогиниться', 'Ok', {
+            duration: 3000,
+            panelClass: 'my-custom-snackbar'
+          });
         }
       }
     )
@@ -49,6 +54,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.form.reset()
           console.log('Ошибка при логине в логин компоненте')
+
         }
       )
   }
