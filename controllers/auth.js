@@ -25,7 +25,8 @@ module.exports.login = async(req, res) => {
             name: user.name,
             email: user.email,
             avatar: user.avatar,
-            token: `Bearer ${token}`
+            token: `Bearer ${token}`,
+            expiresIn: 3600
         })
     }
     catch (e) {

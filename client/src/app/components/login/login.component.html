@@ -4,16 +4,17 @@
   <mat-card-content>
     <form
       [formGroup]="form"
-      (ngSubmit)="submit()"
+      (submit)="onSubmit()"
     >
       <p>
         <mat-form-field>
           <input
-            type="text"
+            type="email"
             matInput
-            placeholder="Username"
-            formControlName="username"
+            placeholder="Email"
+            formControlName="email"
           >
+          <mat-error *ngIf="form.get('email').invalid">Введите email</mat-error>
         </mat-form-field>
       </p>
 
@@ -25,15 +26,17 @@
             placeholder="Password"
             formControlName="password"
           >
+          <mat-error *ngIf="form.get('password').invalid">Введите пароль</mat-error>
         </mat-form-field>
       </p>
 
-      <p *ngIf="error" class="error">
-        {{ error }}
-      </p>
-
       <div class="button">
-        <button type="submit" mat-button>Login</button>
+        <button
+          type="submit"
+          mat-button
+        >
+          Login
+        </button>
       </div>
 
     </form>

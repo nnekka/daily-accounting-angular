@@ -4,6 +4,7 @@ import {AuthComponent} from "./layouts/auth/auth.component";
 import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {MainComponent} from "./layouts/main/main.component";
+import {AccountsComponent} from "./components/accounts/accounts.component";
 
 const routes: Routes = [
   {
@@ -12,12 +13,12 @@ const routes: Routes = [
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: RegisterComponent},
     ]
+  },
+  {
+    path: '', component: MainComponent, children: [
+      {path: 'accounts', component: AccountsComponent}
+    ]
   }
-  // {
-  //   path: '', component: MainComponent, children: [
-  //     {path: 'overview', component: OverviewPageComponent}
-  //   ]
-  // }
 ];
 
 @NgModule({
