@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatError} from "@angular/material/form-field";
 import {AuthService} from "../../shared/services/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 import {User} from "../../shared/interfaces";
 
 @Component({
@@ -26,10 +26,21 @@ export class LoginComponent implements OnInit {
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
     })
+
+    this.getParams()
+  }
+
+  private getParams(){
+    this.route.queryParams.subscribe(
+      (params: Params) => {
+        if (params['registered']){
+          console.log('Теперь можно залогиниться')
+        }
+      }
+    )
   }
 
   onSubmit(){
-    console.log(this.form.value)
     this.authService.login(this.form.value.email, this.form.value.password)
       .subscribe(
         (user: User) => {

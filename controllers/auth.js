@@ -24,7 +24,6 @@ module.exports.login = async(req, res) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            avatar: user.avatar,
             token: `Bearer ${token}`,
             expiresIn: 3600
         })
@@ -40,7 +39,7 @@ module.exports.register = async (req, res) => {
         return res.status(400).json({errors: errors.array()})
     }
     try {
-        const { name, email, password, avatar } = req.body
+        const { name, email, password } = req.body
 
         const existUser = await User.findOne({ email })
 
@@ -55,8 +54,7 @@ module.exports.register = async (req, res) => {
         const user = new User({
             name,
             email,
-            password: passwordHash,
-            avatar
+            password: passwordHash
         })
         await user.save()
         const token = generateToken(user._id)
@@ -64,7 +62,6 @@ module.exports.register = async (req, res) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            avatar: user.avatar,
             token: `Bearer ${token}`
         })
     }

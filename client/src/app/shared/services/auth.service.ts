@@ -55,6 +55,10 @@ export class AuthService {
       )
   }
 
+  register(name: string, email: string, password: string): Observable<User>{
+    return this.http.post<User>('/api/users/signup', {name, email, password})
+  }
+
   authorization(){
     const authInfo = this.getFromLocalStorage()
     if (!authInfo){
