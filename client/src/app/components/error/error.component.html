@@ -1,0 +1,17 @@
+<h1 mat-dialog-title class="red-text">An Error Occurred!</h1>
+
+
+<div  mat-dialog-content>
+  <p class="mat-body-2">ERROR: {{data.message}}</p>
+</div>
+
+<div mat-dialog-actions class="text-center">
+  <button
+    class="mat-raised-button"
+    mat-dialog-close
+    (click)="onClose()"
+    style="margin: auto"
+  >
+    Okay
+  </button>
+</div>

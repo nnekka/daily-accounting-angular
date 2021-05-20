@@ -47,7 +47,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/accounts'])
         },
         error => {
-          console.log('Ошибка')
+          this.form.reset()
+          console.log('Ошибка при логине в логин компоненте')
         }
       )
   }
