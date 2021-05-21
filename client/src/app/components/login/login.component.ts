@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatError} from "@angular/material/form-field";
 import {AuthService} from "../../shared/services/auth.service";
 import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 import {User} from "../../shared/interfaces";

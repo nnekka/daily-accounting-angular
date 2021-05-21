@@ -20,11 +20,9 @@ export class MainComponent implements OnInit {
   //my stuff
   user: User
 
-
-
   constructor(
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.authService.userLogged.subscribe(

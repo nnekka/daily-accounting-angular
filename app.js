@@ -4,6 +4,7 @@ const { connectToMongo } = require('./utils/connectDB')
 const middleware = require('./middleware/errorMiddleware')
 const cors = require('cors')
 const userRoutes = require('./routes/auth')
+const accountsRoutes = require('./routes/accounts')
 const app = express()
 
 connectToMongo()
@@ -11,6 +12,7 @@ connectToMongo()
 app.use(express.json())
 app.use(cors())
 app.use('/api/users', userRoutes)
+app.use('/api/accounts', accountsRoutes)
 
 app.use(middleware.errorHandlerGlobal)
 
