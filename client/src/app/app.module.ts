@@ -13,6 +13,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ErrorComponent} from "./components/error/error.component";
 import {ErrorInterceptor} from "./error.interceptor";
+import {AccountsComponent} from "./components/accounts/accounts.component";
+import { CreateAccountComponent } from './components/create-account/create-account.component';
+import {TokenInterceptor} from "./shared/token.interceptor";
 
 @NgModule({
   declarations: [
@@ -20,15 +23,18 @@ import {ErrorInterceptor} from "./error.interceptor";
     AuthComponent,
     MainComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AccountsComponent,
+    ErrorComponent,
+    CreateAccountComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularMaterialModule,
     HttpClientModule
   ],
   providers: [
@@ -36,6 +42,11 @@ import {ErrorInterceptor} from "./error.interceptor";
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: ErrorInterceptor
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: TokenInterceptor
     }
   ],
   bootstrap: [AppComponent],

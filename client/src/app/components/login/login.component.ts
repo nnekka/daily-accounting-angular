@@ -23,6 +23,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.authService.userLogged.subscribe(
+      (user: User) => {
+        if (user){
+          this.router.navigate(['/accounts'])
+        }
+      }
+    )
     this.form = new FormGroup({
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
@@ -38,7 +45,12 @@ export class LoginComponent implements OnInit {
           this.snackBar.open('Теперь вы можете залогиниться', 'Ok', {
             duration: 3000,
             panelClass: 'my-custom-snackbar'
-          });
+          })
+        } else if (params['sessionFailed']){
+          this.snackBar.open('Время сессии истекло, залогиньтесь опять', 'Ok', {
+            duration: 3000,
+            panelClass: 'my-custom-snackbar'
+          })
         }
       }
     )
