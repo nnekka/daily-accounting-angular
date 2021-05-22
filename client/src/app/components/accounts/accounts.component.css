@@ -1,3 +1,18 @@
 table {
   width: 100%;
 }
+
+.empty-list{
+  width: 300px;
+  height: 100px;
+  display: flex;
+  margin: 50px auto;
+  justify-content: center;
+  align-items: center;
+}
+.menu-spacer{
+  padding: 5px;
+}
+.center {
+  margin: 20px auto;
+}

@@ -1,0 +1,13 @@
+.account-card {
+  width: 80%;
+  margin: 30px auto;
+}
+.mat-form-field {
+  width: 100%;
+  min-width: 400px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+}

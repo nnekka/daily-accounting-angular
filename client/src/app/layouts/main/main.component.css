@@ -7,9 +7,11 @@
   height: 100%;
   align-items: center;
   justify-content: center;
+
 }
 .example-sidenav {
   user-select: none;
+  width: 17vw;
 }
 .full-width {
   width: 100%;
@@ -30,4 +32,11 @@
 }
 .submenu.expanded {
   transform: scaleY(1);
+}
+
+.py {
+  margin-top: 33px;
+}
+.total-sum {
+  padding-left: 8px;
 }

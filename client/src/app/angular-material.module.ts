@@ -12,6 +12,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import {MatTableModule} from "@angular/material/table";
+import {MatSelectModule} from "@angular/material/select";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatDividerModule} from "@angular/material/divider";
 
 
 @NgModule({
@@ -28,7 +31,10 @@ import {MatTableModule} from "@angular/material/table";
     MatFormFieldModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatDividerModule
   ]
 })
 export class AngularMaterialModule {}

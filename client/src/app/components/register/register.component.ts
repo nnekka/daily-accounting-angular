@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/services/auth.service";
 import {User} from "../../shared/interfaces";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs/internal/Subscription";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   form: FormGroup
+  sub: Subscription
 
   constructor(
     private authService: AuthService,
@@ -27,7 +29,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    this.authService.register(
+    this.sub = this.authService.register(
       this.form.value.name,
       this.form.value.email,
       this.form.value.password
@@ -44,6 +46,12 @@ export class RegisterComponent implements OnInit {
             }
         }
       )
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub){
+      this.sub.unsubscribe()
+    }
   }
 
 }

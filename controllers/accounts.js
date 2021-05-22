@@ -2,6 +2,7 @@ const Account = require('../models/Account')
 const {errorHandler} = require('../utils/errorHandler')
 const {validationResult} = require('express-validator')
 
+
 module.exports.getUserAccounts = async (req, res) => {
     try {
         const accounts = await Account.find({user: req.user.id})
@@ -114,3 +115,6 @@ module.exports.deleteAccount = async (req, res) => {
         errorHandler(res, e)
     }
 }
+
+
+

@@ -1,5 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
 import {AccountService} from "../../shared/services/account.service";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {Observable} from "rxjs/internal/Observable";
 
 @Component({
   selector: 'app-accounts',
@@ -10,14 +12,18 @@ export class AccountsComponent implements OnInit {
 
   accounts: Account[]
   isPending = false
-  displayedColumns: string[] = [ 'name', 'total', 'currency', 'dir' ];
+  displayedColumns: string[] = [ 'name', 'total', 'currency', 'dir' ]
+
+  array: any[]
 
   constructor(
-    private accountService: AccountService
+    private accountService: AccountService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
     this.isPending = true
+
 
     this.accountService.accountsSubject.subscribe(
       (accounts: Account[]) => {
@@ -37,5 +43,19 @@ export class AccountsComponent implements OnInit {
       }
     )
   }
+
+  getCurrency(){
+    this.http.get('http://uk.finance.yahoo.com/currencies/converter/#from=GBP;to=EUR;amt=1')
+      .subscribe(
+        (data) => {
+          console.log(data)
+        },
+        error => {
+          console.log(error)
+        }
+      )
+  }
+
+
 
 }

@@ -9,13 +9,14 @@ import { MainComponent } from './layouts/main/main.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AngularMaterialModule } from "./angular-material.module";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {ErrorComponent} from "./components/error/error.component";
-import {ErrorInterceptor} from "./error.interceptor";
-import {AccountsComponent} from "./components/accounts/accounts.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { ErrorComponent} from "./components/error/error.component";
+import { ErrorInterceptor} from "./error.interceptor";
+import { AccountsComponent} from "./components/accounts/accounts.component";
 import { CreateAccountComponent } from './components/create-account/create-account.component';
-import {TokenInterceptor} from "./shared/token.interceptor";
+import { TokenInterceptor } from "./shared/token.interceptor";
+import { ExpenditureComponent } from './components/expenditure/expenditure.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {TokenInterceptor} from "./shared/token.interceptor";
     RegisterComponent,
     AccountsComponent,
     ErrorComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    ExpenditureComponent
   ],
   imports: [
     BrowserModule,
@@ -51,5 +53,6 @@ import {TokenInterceptor} from "./shared/token.interceptor";
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent]
+
 })
 export class AppModule { }
