@@ -21,3 +21,8 @@ export enum Currency {
   euro = 'euro',
   dollar = 'dollar'
 }
+
+export interface CurrencyData {
+  name: string;
+  value: number;
+}

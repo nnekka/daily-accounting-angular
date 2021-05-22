@@ -16,3 +16,6 @@ table {
 .center {
   margin: 20px auto;
 }
+.left-group {
+  margin-left: auto;
+}

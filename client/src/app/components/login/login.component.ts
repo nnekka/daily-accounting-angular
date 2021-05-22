@@ -53,6 +53,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             duration: 3000,
             panelClass: 'my-custom-snackbar'
           })
+        } else if (params['accessDenied']){
+          this.snackBar.open('Залогиньтесь для этого действия', 'Ok', {
+            duration: 3000,
+            panelClass: 'my-custom-snackbar'
+          })
         }
       }
     )

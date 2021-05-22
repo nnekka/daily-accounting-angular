@@ -1,7 +1,6 @@
 <mat-toolbar>
   <mat-toolbar-row>
     <button mat-icon-button>
-
       <mat-icon >pets</mat-icon>
     </button>
     <span class="menu-spacer"></span>
@@ -10,9 +9,16 @@
       Создать счет
     </a>
     <span class="menu-spacer"></span>
-    <button mat-button>
 
-    </button>
+    <div *ngIf="currencies.length > 0" class="left-group">
+      <a>
+        <mat-icon>attach_money</mat-icon>{{currencies[0].value}}
+      </a>
+
+      <a>
+        <mat-icon>euro_symbol</mat-icon>{{currencies[1].value}}
+      </a>
+    </div>
 
   </mat-toolbar-row>
 
@@ -42,6 +48,11 @@
       <ng-container matColumnDef="dir">
         <th mat-header-cell *matHeaderCellDef> Dir </th>
         <td mat-cell *matCellDef> Dir </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dop">
+        <th mat-header-cell *matHeaderCellDef> Dop </th>
+        <td mat-cell *matCellDef> Dop </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

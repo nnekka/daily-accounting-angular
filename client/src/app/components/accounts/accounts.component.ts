@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
 import {AccountService} from "../../shared/services/account.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
+import {CurrencyData} from "../../shared/interfaces";
 
 @Component({
   selector: 'app-accounts',
@@ -12,19 +13,16 @@ export class AccountsComponent implements OnInit {
 
   accounts: Account[]
   isPending = false
-  displayedColumns: string[] = [ 'name', 'total', 'currency', 'dir' ]
-
-  array: any[]
+  displayedColumns: string[] = [ 'name', 'total', 'currency', 'dir', 'dop' ]
+  currencies: CurrencyData[]
 
   constructor(
-    private accountService: AccountService,
-    private http: HttpClient
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
     this.isPending = true
-
-
+    this.getCurrency()
     this.accountService.accountsSubject.subscribe(
       (accounts: Account[]) => {
         if (accounts){
@@ -42,20 +40,27 @@ export class AccountsComponent implements OnInit {
         console.log('Ошибка в компоненте accounts')
       }
     )
+
+    this.accountService.valutesSubject.subscribe(
+      (currencies: CurrencyData[]) => {
+        if (currencies){
+          this.currencies = currencies
+        }
+      }
+    )
   }
 
   getCurrency(){
-    this.http.get('http://uk.finance.yahoo.com/currencies/converter/#from=GBP;to=EUR;amt=1')
+    this.accountService.getCurrencies()
       .subscribe(
         (data) => {
-          console.log(data)
+          console.log('Meow')
+
         },
         error => {
           console.log(error)
         }
       )
   }
-
-
 
 }
