@@ -15,9 +15,8 @@ export class MainComponent implements OnInit {
   //material stuff
   @ViewChild('sidenav') sidenav: MatSidenav;
   isExpanded = true;
-  showSubmenu: boolean = false;
   isShowing = false;
-  showSubSubMenu: boolean = false;
+
 
   //my stuff
   user: User
@@ -56,28 +55,12 @@ export class MainComponent implements OnInit {
       (currencies: CurrencyData[]) => {
         if (currencies){
           this.currencies = currencies
-          console.log(this.currencies)
         }
       }
     )
-
   }
 
 
-  //material stuff
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
-    }
-  }
-
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
-    }
-  }
-
-  //my stuff
   onLogout(){
     this.authService.logout()
   }
@@ -94,7 +77,7 @@ export class MainComponent implements OnInit {
         sum += account.total*this.currencies[0].value
       }
     })
-    return sum
+    return +sum.toFixed(2)
   }
 
 }

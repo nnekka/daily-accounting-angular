@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./shared/services/auth.service";
 import {AccountService} from "./shared/services/account.service";
-import {Account} from "./shared/interfaces";
+import {Account, Currency, CurrencyData} from "./shared/interfaces";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,7 @@ import {Account} from "./shared/interfaces";
 export class AppComponent implements OnInit {
 
   accounts: Account[]
+  currencies: any
 
   constructor(
     private authService: AuthService,
@@ -19,6 +20,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.authorization()
+    this.accountService.getCurrencies()
+      .subscribe(
+        (currencies: any) => {
+          this.currencies = currencies
+        }
+      )
     this.accountService.getAccounts()
       .subscribe(
         (accounts: Account[]) => {
