@@ -17,6 +17,8 @@ import { AccountsComponent} from "./components/accounts/accounts.component";
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { TokenInterceptor } from "./shared/token.interceptor";
 import { ExpenditureComponent } from './components/expenditure/expenditure.component';
+import { ExpenditureListComponent } from './components/expenditure/expenditure-list/expenditure-list.component';
+import { ExpenditureEditComponent } from './components/expenditure/expenditure-edit/expenditure-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ExpenditureComponent } from './components/expenditure/expenditure.compo
     AccountsComponent,
     ErrorComponent,
     CreateAccountComponent,
-    ExpenditureComponent
+    ExpenditureComponent,
+    ExpenditureListComponent,
+    ExpenditureEditComponent
   ],
   imports: [
     BrowserModule,

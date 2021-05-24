@@ -1,39 +1,43 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ExpenditureService} from "../../shared/services/expenditure.service";
-import {ExpenditureCategory} from "../../shared/interfaces";
+import {ExpenditureService} from "../../../shared/services/expenditure.service";
+import {ExpenditureCategory} from "../../../shared/interfaces";
 import {Subscription} from "rxjs/internal/Subscription";
 import {MatDialog} from "@angular/material/dialog";
-import {ExpenditureListComponent} from "./expenditure-list/expenditure-list.component";
 
 @Component({
-  selector: 'app-expenditure',
-  templateUrl: './expenditure.component.html',
-  styleUrls: ['./expenditure.component.css']
+  selector: 'app-expenditure-list',
+  templateUrl: './expenditure-list.component.html',
+  styleUrls: ['./expenditure-list.component.css']
 })
-export class ExpenditureComponent implements OnInit, OnDestroy {
+export class ExpenditureListComponent implements OnInit, OnDestroy {
 
   expCategories: ExpenditureCategory[]
   expSub: Subscription
+  isPending = false
+
   constructor(
     private expService: ExpenditureService,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.isPending = true
     this.expSub = this.expService.getCategories()
       .subscribe(
         (categories: ExpenditureCategory[]) => {
           this.expCategories = categories
+          this.isPending = false
         }
       )
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(ExpenditureListComponent);
+  onDeleteCategory(id: string){
 
   }
 
-
+  onCloseDialog(){
+    this.dialog.closeAll()
+  }
 
   ngOnDestroy(): void {
     if (this.expSub){

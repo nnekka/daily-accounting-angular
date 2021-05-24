@@ -26,3 +26,16 @@ export interface CurrencyData {
   name: string;
   value: number;
 }
+
+export interface ExpenditureCategory {
+  name: string;
+  items: ExpenditureData[];
+}
+
+export interface ExpenditureData {
+  id: string;
+  name: string;
+  itemPrice: number;
+  qty: number;
+
+}

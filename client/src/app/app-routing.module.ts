@@ -8,6 +8,7 @@ import { AccountsComponent } from "./components/accounts/accounts.component";
 import { CreateAccountComponent } from "./components/create-account/create-account.component";
 import { ExpenditureComponent } from "./components/expenditure/expenditure.component";
 import {AuthGuard} from "./shared/auth.guard";
+import {ExpenditureEditComponent} from "./components/expenditure/expenditure-edit/expenditure-edit.component";
 
 const routes: Routes = [
   {
@@ -22,7 +23,9 @@ const routes: Routes = [
       {path: 'accounts', component: AccountsComponent, canActivate: [AuthGuard]},
       {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
       {path: 'expenditure', component: ExpenditureComponent, canActivate: [AuthGuard]},
-      {path: 'edit-account/:id', component: CreateAccountComponent, canActivate: [AuthGuard]}
+      {path: 'edit-account/:id', component: CreateAccountComponent, canActivate: [AuthGuard]},
+      {path: 'edit-expCategory/:id', component: ExpenditureEditComponent, canActivate: [AuthGuard]},
+      {path: 'create-expCategory', component: ExpenditureEditComponent, canActivate: [AuthGuard]},
     ]
   }
 ];

@@ -1,15 +1,22 @@
-<!--<mat-row>-->
-  <!--<mat-accordion multi="true">-->
-    <!--<mat-expansion-panel >-->
-      <!--<mat-expansion-panel-header>{{post.title}}</mat-expansion-panel-header>-->
-      <!--<p>{{post.content}}</p>-->
-      <!--<div class="post-image">-->
-        <!--<img [src]="post.image" [alt]="post.title">-->
-      <!--</div>-->
-      <!--<mat-action-row *ngIf="userIsAuthenticated && userId == post.creator">-->
-        <!--<a mat-button color="primary" routerLink="/edit/{{post.id}}">EDIT</a>-->
-        <!--<button mat-button color="warn" (click)="onDeletePost(post.id)">DELETE</button>-->
-      <!--</mat-action-row>-->
-    <!--</mat-expansion-panel>-->
-  <!--</mat-accordion>-->
-<!--</mat-row>-->
+
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon>pets</mat-icon>
+    </button>
+    <span class="menu-spacer"></span>
+
+    <button mat-button [matMenuTriggerFor]="menu" color="primary">Категории расходов</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openDialog()">
+        Все категории
+      </button>
+      <a mat-menu-item routerLink="/create-expCategory">Добавить категорию</a>
+    </mat-menu>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <span style="font-size: 12px;" class="container">Контролируй свои деньги :)</span>
+
+  </mat-toolbar-row>
+</mat-toolbar>

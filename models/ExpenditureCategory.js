@@ -11,7 +11,11 @@ const schema = new mongoose.Schema({
             itemPrice: Number,
             qty: Number
         }
-    ]
+    ],
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 }, {
     timestamps: true
 })
