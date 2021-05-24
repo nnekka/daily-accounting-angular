@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
 import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
 import {tap} from "rxjs/operators";
-import {CurrencyData} from "../interfaces";
+import {Currency, CurrencyData} from "../interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +57,10 @@ export class AccountService {
           }
         )
       )
+  }
+
+  createAccount(name: string, total: number, currency: string): Observable<any>{
+    return this.http.post<any>('/api/accounts', {name, total, currency})
   }
 
 }

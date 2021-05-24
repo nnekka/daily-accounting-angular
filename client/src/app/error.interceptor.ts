@@ -17,6 +17,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(
         (error: HttpErrorResponse) => {
+          console.log(error)
           let errorMessage = 'Smth wrong happened'
           if(error.error.errors[0].msg){
             errorMessage = error.error.errors[0].msg

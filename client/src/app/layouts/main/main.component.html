@@ -26,13 +26,17 @@
     <mat-nav-list>
       <mat-list-item>
         <mat-icon>account_box</mat-icon>
-        <span class="full-width" *ngIf="isExpanded || isShowing">{{user.name}}</span>
+        <span
+          class="full-width"
+          *ngIf="isExpanded || isShowing"
+          routerLink="/accounts"
+        >{{user.name}}</span>
       </mat-list-item>
 
       <mat-divider></mat-divider>
       <mat-nav-list>
-        <mat-list-item class="total-sum">
-          Всего деняг: 3000000
+        <mat-list-item class="total-sum" *ngIf="accounts.length > 0">
+          Всего деняг: {{totalMoney}} рублей
         </mat-list-item>
       </mat-nav-list>
 

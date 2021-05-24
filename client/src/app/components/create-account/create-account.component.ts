@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {Currency} from "../../shared/interfaces";
+import {AccountService} from "../../shared/services/account.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ErrorComponent} from "../error/error.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-account',
@@ -15,7 +19,11 @@ export class CreateAccountComponent implements OnInit {
   currency: string
 
 
-  constructor() { }
+  constructor(
+    private accountService: AccountService,
+    private dialog: MatDialog,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -34,8 +42,20 @@ export class CreateAccountComponent implements OnInit {
     } else if (this.currency == 'доллар'){
       curr = 'dollar'
     }
-
-    console.log(curr)
+    this.accountService.createAccount(
+      this.form.value.name,
+      this.form.value.total,
+      curr
+    )
+      .subscribe(
+        (response) => {
+          if (response.errors){
+            this.dialog.open(ErrorComponent, {data: {message: response.errors[0].msg} })
+          } else if (response.success){
+            this.router.navigate(['/accounts'])
+          }
+        }
+      )
   }
 
 }

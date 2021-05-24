@@ -55,10 +55,6 @@ export class AccountsComponent implements OnInit {
       .subscribe(
         (data) => {
           console.log('Meow')
-
-        },
-        error => {
-          console.log(error)
         }
       )
   }

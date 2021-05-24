@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {AuthService} from "../../shared/services/auth.service";
 import {User} from "../../shared/interfaces";
+import {AccountService} from "../../shared/services/account.service";
 
 @Component({
   selector: 'app-main',
@@ -19,9 +20,12 @@ export class MainComponent implements OnInit {
 
   //my stuff
   user: User
+  accounts: Account[]
+  totalMoney: number = 0
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +38,18 @@ export class MainComponent implements OnInit {
         }
       }
     )
+
+    this.accountService.accountsSubject.subscribe(
+      (accounts: Account[]) => {
+        if (accounts){
+          this.accounts = accounts
+          if (this.accounts.length > 0){
+            this.totalMoney = this.totalSum(this.accounts)
+          }
+        }
+      }
+    )
+
   }
 
 
@@ -53,6 +69,11 @@ export class MainComponent implements OnInit {
   //my stuff
   onLogout(){
     this.authService.logout()
+  }
+
+  private totalSum(accounts: Account[]): number {
+    const totalResult = accounts.reduce((sum, curr) => sum + curr.total, 0)
+    return totalResult
   }
 
 }
