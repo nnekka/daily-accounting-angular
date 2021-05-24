@@ -3,6 +3,8 @@ import {AccountService} from "../../shared/services/account.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
 import {CurrencyData} from "../../shared/interfaces";
+import {ErrorComponent} from "../error/error.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-accounts',
@@ -13,11 +15,12 @@ export class AccountsComponent implements OnInit {
 
   accounts: Account[]
   isPending = false
-  displayedColumns: string[] = [ 'name', 'total', 'currency', 'dir', 'dop' ]
+  displayedColumns: string[] = [ 'name', 'total', 'currency', 'dir', 'dop', 'edit', 'delete' ]
   currencies: CurrencyData[]
 
   constructor(
-    private accountService: AccountService
+    private accountService: AccountService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -31,15 +34,8 @@ export class AccountsComponent implements OnInit {
       }
     )
 
-    this.accountService.getAccounts().subscribe(
-      (accounts: Account[]) => {
-        this.accounts = accounts
-        this.isPending = false
-      },
-      error => {
-        console.log('Ошибка в компоненте accounts')
-      }
-    )
+    this.refresh()
+
 
     this.accountService.valutesSubject.subscribe(
       (currencies: CurrencyData[]) => {
@@ -50,11 +46,33 @@ export class AccountsComponent implements OnInit {
     )
   }
 
+  refresh(){
+    this.accountService.getAccounts().subscribe(
+      (accounts: Account[]) => {
+        this.accounts = accounts
+        this.isPending = false
+      }
+    )
+  }
+
   getCurrency(){
     this.accountService.getCurrencies()
       .subscribe(
         (data) => {
           console.log('Meow')
+        }
+      )
+  }
+
+  onDeleteAccount(id: string){
+    this.accountService.deleteAccount(id)
+      .subscribe(
+        (response) => {
+          if (response.errors){
+            this.dialog.open(ErrorComponent, {data: {message: response.errors[0].msg} })
+          } else if (response.success){
+            this.refresh()
+          }
         }
       )
   }

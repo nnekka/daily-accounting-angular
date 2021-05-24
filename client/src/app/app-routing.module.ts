@@ -22,6 +22,7 @@ const routes: Routes = [
       {path: 'accounts', component: AccountsComponent, canActivate: [AuthGuard]},
       {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
       {path: 'expenditure', component: ExpenditureComponent, canActivate: [AuthGuard]},
+      {path: 'edit-account/:id', component: CreateAccountComponent, canActivate: [AuthGuard]}
     ]
   }
 ];

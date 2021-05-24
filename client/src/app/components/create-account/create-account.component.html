@@ -1,6 +1,6 @@
 
 <mat-card class="account-card">
-  <mat-card-title>Создание нового счета</mat-card-title>
+  <mat-card-title>{{editMode ? 'Редактирование названия счета' : 'Создание нового счета'}}</mat-card-title>
   <mat-card-content>
     <form
       [formGroup]="form"
@@ -14,11 +14,23 @@
             placeholder="Название счета"
             formControlName="name"
           >
-          <mat-error></mat-error>
+          <mat-error>Введите название счета</mat-error>
         </mat-form-field>
       </p>
 
-      <p>
+      <p *ngIf="editMode">
+        <mat-form-field>
+          <input
+            type="number"
+            matInput
+            placeholder="Сумма на счету"
+            formControlName="total"
+            readonly
+          >
+        </mat-form-field>
+      </p>
+
+      <p *ngIf="!editMode">
         <mat-form-field>
           <input
             type="number"
@@ -32,10 +44,18 @@
 
       <p>
       <mat-form-field appearance="fill">
-        <mat-label>Валюта счета</mat-label>
+        <div *ngIf="account">
+          <mat-label>{{account.currency}}</mat-label>
+        </div>
+        <mat-label *ngIf="!editMode">Выбрать валюту</mat-label>
         <mat-select>
           <mat-option></mat-option>
-          <mat-option *ngFor="let curr of currencyArray" [value]="curr" (click)="currency = curr">
+          <mat-option
+            *ngFor="let curr of currencyArray"
+            [value]="curr"
+            (click)="currency = curr"
+            [disabled]="editMode"
+          >
             {{curr}}
           </mat-option>
         </mat-select>
@@ -47,6 +67,7 @@
           type="submit"
           mat-raised-button
           color="primary"
+          [disabled]="form.invalid"
         >
           Создать
         </button>

@@ -13,6 +13,17 @@ module.exports.getUserAccounts = async (req, res) => {
     }
 }
 
+module.exports.getAccount= async (req, res) => {
+    try {
+        const account = await Account.findById(req.params.id)
+        res.status(200).json(account)
+    }
+    catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+
 module.exports.createAccount = async (req, res) => {
 
     const errors = validationResult(req)

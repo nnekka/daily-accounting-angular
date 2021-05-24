@@ -1,6 +1,7 @@
 const express = require('express')
 const {
     getUserAccounts,
+    getAccount,
     createAccount,
     updateAccountsName,
     updateAccountsTotal,
@@ -30,5 +31,6 @@ router.route('/:id/total')
         updateAccountsTotal
     )
 router.route('/:id').delete(getTokenFromRequest, deleteAccount)
+router.route('/:id').get(getTokenFromRequest, getAccount)
 
 module.exports = router

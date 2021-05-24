@@ -38,6 +38,10 @@ export class AccountService {
     return this.currencies
   }
 
+  getAccountById(id: string): Observable<Account>{
+    return this.http.get<Account>(`/api/accounts/${id}`)
+  }
+
   getCurrencies(): Observable<any>{
     return this.http.get<any>('/api/currency')
       .pipe(
@@ -62,5 +66,14 @@ export class AccountService {
   createAccount(name: string, total: number, currency: string): Observable<any>{
     return this.http.post<any>('/api/accounts', {name, total, currency})
   }
+
+  editAccountName(name: string, accountId: string): Observable<any>{
+    return this.http.put(`/api/accounts/${accountId}/name`, {name})
+  }
+
+  deleteAccount(id: string): Observable<any>{
+    return this.http.delete(`/api/accounts/${id}`)
+  }
+
 
 }

@@ -19,3 +19,7 @@ table {
 .left-group {
   margin-left: auto;
 }
+.edit-mode-span {
+  color: forestgreen;
+}
+
