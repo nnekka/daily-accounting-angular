@@ -69,7 +69,7 @@
           color="primary"
           [disabled]="form.invalid"
         >
-          Создать
+          {{editMode ? 'Обновить' : 'Создать'}}
         </button>
       </div>
 

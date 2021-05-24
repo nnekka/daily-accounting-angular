@@ -6,6 +6,7 @@ const cors = require('cors')
 const userRoutes = require('./routes/auth')
 const accountsRoutes = require('./routes/accounts')
 const currencyRoutes = require('./routes/currency')
+const expenditureCategoriesRoutes = require('./routes/expenditureCategories')
 
 const app = express()
 
@@ -16,10 +17,8 @@ app.use(cors())
 app.use('/api/users', userRoutes)
 app.use('/api/accounts', accountsRoutes)
 app.use('/api/currency', currencyRoutes)
+app.use('/api/expCategories', expenditureCategoriesRoutes)
 
-app.get('https://currate.ru/api/?get=currency_list&key=b92dcd27b0382bbcd56ecb7520f3847f', (req, res) => {
-    res.send(req)
-})
 
 app.use(middleware.errorHandlerGlobal)
 

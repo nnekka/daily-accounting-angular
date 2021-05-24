@@ -15,6 +15,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSelectModule} from "@angular/material/select";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MatDividerModule} from "@angular/material/divider";
     MatTableModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatDividerModule
+    MatDividerModule,
+    MatExpansionModule
   ]
 })
 export class AngularMaterialModule {}
