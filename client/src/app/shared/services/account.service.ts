@@ -4,6 +4,7 @@ import {Observable} from "rxjs/internal/Observable";
 import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
 import {tap} from "rxjs/operators";
 import {Currency, CurrencyData} from "../interfaces";
+import {Account} from "../interfaces";
 
 @Injectable({
   providedIn: 'root'

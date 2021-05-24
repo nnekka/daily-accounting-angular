@@ -4,6 +4,7 @@ import {AccountService} from "../../shared/services/account.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ErrorComponent} from "../error/error.component";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {Account} from "../../shared/interfaces";
 
 
 @Component({

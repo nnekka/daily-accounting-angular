@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./shared/services/auth.service";
 import {AccountService} from "./shared/services/account.service";
+import {Account} from "./shared/interfaces";
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
       .subscribe(
         (accounts: Account[]) => {
           this.accounts = accounts
+          this.accountService.accountsSubject.next(accounts)
         }
       )
   }

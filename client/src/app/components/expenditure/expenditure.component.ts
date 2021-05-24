@@ -30,10 +30,7 @@ export class ExpenditureComponent implements OnInit, OnDestroy {
 
   openDialog() {
     const dialogRef = this.dialog.open(ExpenditureListComponent);
-
   }
-
-
 
   ngOnDestroy(): void {
     if (this.expSub){

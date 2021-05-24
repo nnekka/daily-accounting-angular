@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {AuthService} from "../../shared/services/auth.service";
-import {User} from "../../shared/interfaces";
+import {CurrencyData, User} from "../../shared/interfaces";
 import {AccountService} from "../../shared/services/account.service";
+import {Account} from "../../shared/interfaces";
 
 @Component({
   selector: 'app-main',
@@ -22,6 +23,7 @@ export class MainComponent implements OnInit {
   user: User
   accounts: Account[]
   totalMoney: number = 0
+  currencies: CurrencyData[] = []
 
   constructor(
     private authService: AuthService,
@@ -43,12 +45,22 @@ export class MainComponent implements OnInit {
       (accounts: Account[]) => {
         if (accounts){
           this.accounts = accounts
-          if (this.accounts.length > 0){
+          if (this.accounts.length > 0 && this.currencies.length > 0){
             this.totalMoney = this.totalSum(this.accounts)
           }
         }
       }
     )
+
+    this.accountService.valutesSubject.subscribe(
+      (currencies: CurrencyData[]) => {
+        if (currencies){
+          this.currencies = currencies
+          console.log(this.currencies)
+        }
+      }
+    )
+
   }
 
 
@@ -71,8 +83,18 @@ export class MainComponent implements OnInit {
   }
 
   private totalSum(accounts: Account[]): number {
-    const totalResult = accounts.reduce((sum, curr) => sum + curr.total, 0)
-    return totalResult
+    let sum = 0
+    const totalResult  = accounts.map(account => {
+
+      if (account.currency === 'rub'){
+        sum += account.total
+      } else if (account.currency === 'euro'){
+        sum += account.total*this.currencies[1].value
+      } else if (account.currency === 'dollar'){
+        sum += account.total*this.currencies[0].value
+      }
+    })
+    return sum
   }
 
 }

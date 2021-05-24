@@ -5,6 +5,7 @@ import {Observable} from "rxjs/internal/Observable";
 import {CurrencyData} from "../../shared/interfaces";
 import {ErrorComponent} from "../error/error.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Account} from "../../shared/interfaces";
 
 @Component({
   selector: 'app-accounts',
@@ -65,16 +66,19 @@ export class AccountsComponent implements OnInit {
   }
 
   onDeleteAccount(id: string){
-    this.accountService.deleteAccount(id)
-      .subscribe(
-        (response) => {
-          if (response.errors){
-            this.dialog.open(ErrorComponent, {data: {message: response.errors[0].msg} })
-          } else if (response.success){
-            this.refresh()
+    if (window.confirm('Вы точно хотите удалить этот счет?')){
+      this.accountService.deleteAccount(id)
+        .subscribe(
+          (response) => {
+            if (response.errors){
+              this.dialog.open(ErrorComponent, {data: {message: response.errors[0].msg} })
+            } else if (response.success){
+              this.refresh()
+            }
           }
-        }
-      )
+        )
+    }
+
   }
 
 }
