@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/internal/Observable";
-import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
-import {tap} from "rxjs/operators";
-import {Currency, CurrencyData} from "../interfaces";
-import {Account} from "../interfaces";
+import { HttpClient} from "@angular/common/http";
+import { Observable } from "rxjs/internal/Observable";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { tap } from "rxjs/operators";
+import { CurrencyData } from "../interfaces";
+import { Account } from "../interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -30,14 +30,12 @@ export class AccountService {
           (accounts: Account[]) => {
             this.accounts = accounts
             this.accountsSubject.next(this.accounts)
+
           }
         )
       )
   }
 
-  getValutesArray(){
-    return this.currencies
-  }
 
   getAccountById(id: string): Observable<Account>{
     return this.http.get<Account>(`/api/accounts/${id}`)

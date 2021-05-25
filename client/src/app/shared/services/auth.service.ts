@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {User} from "../interfaces";
-import {Observable} from "rxjs/internal/Observable";
-import {tap} from "rxjs/operators";
-import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
-import {Router} from "@angular/router";
+import { HttpClient} from "@angular/common/http";
+import { User} from "../interfaces";
+import { Observable} from "rxjs/internal/Observable";
+import { tap} from "rxjs/operators";
+import { BehaviorSubject} from "rxjs/internal/BehaviorSubject";
+import { Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'

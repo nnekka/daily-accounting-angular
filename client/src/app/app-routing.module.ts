@@ -7,8 +7,8 @@ import { MainComponent } from "./layouts/main/main.component";
 import { AccountsComponent } from "./components/accounts/accounts.component";
 import { CreateAccountComponent } from "./components/create-account/create-account.component";
 import { ExpenditureComponent } from "./components/expenditure/expenditure.component";
-import {AuthGuard} from "./shared/auth.guard";
-import {ExpenditureEditComponent} from "./components/expenditure/expenditure-edit/expenditure-edit.component";
+import { AuthGuard } from "./shared/auth.guard";
+import { ExpenditureEditComponent } from "./components/expenditure/expenditure-edit/expenditure-edit.component";
 
 const routes: Routes = [
   {

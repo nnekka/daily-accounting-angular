@@ -15,7 +15,7 @@ export class ExpenditureService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {}
 
   getCategories(): Observable<ExpenditureCategory[]>{
     return this.http.get<ExpenditureCategory[]>('/api/expCategories')
@@ -27,4 +27,21 @@ export class ExpenditureService {
         )
       )
   }
+
+  getCategoryById(id: string): Observable<ExpenditureCategory>{
+    return this.http.get<ExpenditureCategory>(`/api/expCategories/${id}`)
+  }
+
+  createExpCategory(name: string): Observable<ExpenditureCategory>{
+    return this.http.post<ExpenditureCategory>('/api/expCategories', {name})
+  }
+
+  updateExpCategoryName(name: string, id: string): Observable<ExpenditureCategory>{
+    return this.http.put<ExpenditureCategory>(`/api/expCategories/${id}`, {name})
+  }
+
+  deleteCategory(id: string): Observable<{message: string}>{
+    return this.http.delete<{message: string}>(`/api/expCategories/${id}`)
+  }
+
 }

@@ -21,18 +21,20 @@ export class MainComponent implements OnInit {
   //my stuff
   user: User
   accounts: Account[]
-  totalMoney: number = 0
+  totalMoney = {sum: 0, rubSum: 0, euroSum: 0, dollarSum: 0}
   currencies: CurrencyData[] = []
 
   constructor(
     private authService: AuthService,
     private accountService: AccountService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
+
     this.authService.userLogged.subscribe(
       (user: User) => {
-        if (user){
+        if (user) {
           this.user = user
         } else {
           console.log('BehaviourSubject передает null')
@@ -42,42 +44,53 @@ export class MainComponent implements OnInit {
 
     this.accountService.accountsSubject.subscribe(
       (accounts: Account[]) => {
-        if (accounts){
+        if (accounts) {
           this.accounts = accounts
-          if (this.accounts.length > 0 && this.currencies.length > 0){
-            this.totalMoney = this.totalSum(this.accounts)
-          }
-        }
-      }
-    )
-
-    this.accountService.valutesSubject.subscribe(
-      (currencies: CurrencyData[]) => {
-        if (currencies){
-          this.currencies = currencies
+          this.accountService.valutesSubject.subscribe(
+            (currencies: CurrencyData[]) => {
+              if (currencies) {
+                this.currencies = currencies
+                if (this.accounts.length > 0 && this.currencies.length > 0) {
+                  this.totalMoney = this.totalSum(this.accounts)
+                }
+              }
+            }
+          )
         }
       }
     )
   }
 
 
-  onLogout(){
+  onLogout() {
     this.authService.logout()
   }
 
-  private totalSum(accounts: Account[]): number {
+  private totalSum(accounts: Account[]) {
     let sum = 0
-    const totalResult  = accounts.map(account => {
+    let dollarSum = 0
+    let euroSum = 0
+    let rubSum =0
+    accounts.map(account => {
 
-      if (account.currency === 'rub'){
+      if (account.currency === 'rub') {
         sum += account.total
-      } else if (account.currency === 'euro'){
-        sum += account.total*this.currencies[1].value
-      } else if (account.currency === 'dollar'){
-        sum += account.total*this.currencies[0].value
+        rubSum += account.total
+      } else if (account.currency === 'euro') {
+        sum += account.total * this.currencies[1].value
+        euroSum += account.total
+      } else if (account.currency === 'dollar') {
+        sum += account.total * this.currencies[0].value
+        dollarSum += account.total
       }
+
     })
-    return +sum.toFixed(2)
+    return {
+      sum: +sum.toFixed(2),
+      rubSum,
+      euroSum,
+      dollarSum,
+    }
   }
 
 }

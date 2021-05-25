@@ -4,6 +4,7 @@ import {ExpenditureCategory} from "../../shared/interfaces";
 import {Subscription} from "rxjs/internal/Subscription";
 import {MatDialog} from "@angular/material/dialog";
 import {ExpenditureListComponent} from "./expenditure-list/expenditure-list.component";
+import {ExpenditureEditComponent} from "./expenditure-edit/expenditure-edit.component";
 
 @Component({
   selector: 'app-expenditure',
@@ -29,7 +30,11 @@ export class ExpenditureComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(ExpenditureListComponent);
+    this.dialog.open(ExpenditureListComponent);
+  }
+
+  onOpenAddDialog(){
+    this.dialog.open(ExpenditureEditComponent)
   }
 
   ngOnDestroy(): void {
