@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./shared/services/auth.service";
 import {AccountService} from "./shared/services/account.service";
 import {Account, Currency, CurrencyData} from "./shared/interfaces";
+import {ExpenditureService} from "./shared/services/expenditure.service";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private expService: ExpenditureService
   ){}
 
   ngOnInit(): void {
@@ -26,6 +28,18 @@ export class AppComponent implements OnInit {
           this.currencies = currencies
         }
       )
+    this.refresh()
+    this.expService.refreshSubject.subscribe(
+      (data) => {
+        if (data){
+          this.refresh()
+        }
+      }
+    )
+  }
+
+
+  refresh(){
     this.accountService.getAccounts()
       .subscribe(
         (accounts: Account[]) => {

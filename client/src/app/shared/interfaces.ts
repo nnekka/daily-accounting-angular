@@ -11,7 +11,6 @@ export interface Account {
   name: string;
   total: number;
   currency: Currency;
-  lastDayTotal: number,
   user: string;
   id?: string;
   createdAt: Date;
@@ -29,13 +28,16 @@ export interface CurrencyData {
 
 export interface ExpenditureCategory {
   name: string;
-  items: ExpenditureData[];
+  items: string[];
 }
 
-export interface ExpenditureData {
-  id: string;
-  name: string;
-  itemPrice: number;
+export interface Expenditure {
+  id?: string;
+  description: string;
   qty: number;
-
+  itemPrice: number;
+  category: string;
+  createdAt: Date;
+  updatedAt: Date;
+  account: string;
 }

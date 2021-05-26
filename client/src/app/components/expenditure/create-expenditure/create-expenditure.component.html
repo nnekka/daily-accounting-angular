@@ -1,0 +1,85 @@
+<mat-card>
+  <mat-card-title>Сегодня потратили:</mat-card-title>
+  <mat-card-content>
+    <form
+      [formGroup]="form"
+      (submit)="onSubmit()"
+    >
+      <p>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="Описание"
+            formControlName="description"
+          >
+          <mat-error>Что именно куплено</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input
+            type="number"
+            matInput
+            placeholder="Сумма"
+            formControlName="itemPrice"
+          >
+          <mat-error>Сколько потрачено</mat-error>
+        </mat-form-field>
+      </p>
+
+
+      <p *ngIf="expCategories && !editMode">
+        <mat-form-field appearance="fill">
+          <mat-label>Выбрать категорию</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+            <mat-option
+              *ngFor="let category of expCategories"
+              [value]="category._id"
+              (click)="selectCategory(category._id)"
+            >
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+
+      <p *ngIf="accounts && !editMode">
+        <mat-form-field appearance="fill">
+          <mat-label>Списать со счета</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+            <mat-option
+              *ngFor="let account of accounts"
+              [value]="account._id"
+              (click)="selectAccount(account._id)"
+            >
+              {{account.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+
+      <div class="button">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+        >
+          {{editMode ? 'Обновить' : 'Добавить'}}
+        </button>
+
+        <button
+          mat-raised-button
+          type="button"
+          (click)="dialog.closeAll()"
+        >
+          Cancel
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

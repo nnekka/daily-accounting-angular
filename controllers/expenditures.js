@@ -1,5 +1,6 @@
 const Expenditure = require('../models/Expenditure')
 const ExpenditureCategory = require('../models/ExpenditureCategory')
+const Account = require('../models/Account')
 const User = require('../models/User')
 const {errorHandler} = require('../utils/errorHandler')
 const {validationResult} = require('express-validator')
@@ -106,7 +107,7 @@ module.exports.removeExpCategory = async (req, res) => {
 
 module.exports.getExpenditures = async (req, res) => {
     try {
-        const expenditures = await Expenditure.find({user: req.user.id})
+        const expenditures = await Expenditure.find({user: req.user.id}).populate('category')
         res.status(200).json(expenditures)
     }
 
@@ -131,11 +132,15 @@ module.exports.getExpenditureById = async (req, res) => {
 
 module.exports.createExpenditure = async (req, res) => {
     try {
-        const {itemPrice, qty, categoryId, description} = req.body
+        const {itemPrice, qty, categoryId, description, accountId} = req.body
         const user = await User.findById(req.user.id)
         const category = await ExpenditureCategory.findById(categoryId)
-        if (!categoryId){
+        if (!category){
             return res.status(404).json({ errors: [{ msg: 'Такой категории не существует'}] })
+        }
+        const account = await Account.findById(accountId)
+        if (!account){
+            return res.status(404).json({ errors: [{ msg: 'Такого счета не существует'}] })
         }
 
         const newExpenditure = new Expenditure({
@@ -143,11 +148,14 @@ module.exports.createExpenditure = async (req, res) => {
             itemPrice,
             qty,
             category: category._id,
-            user: user._id
+            user: user._id,
+            account: account._id
         })
         await newExpenditure.save()
         category.items = category.items.concat(newExpenditure._id)
         await category.save()
+        account.total = account.total - itemPrice
+        await account.save()
         res.status(200).json(newExpenditure)
     }
     catch (e) {
@@ -157,15 +165,20 @@ module.exports.createExpenditure = async (req, res) => {
 
 module.exports.updateExpenditure = async (req, res) => {
     try {
-        const {itemPrice, qty, description} = req.body
+        const {itemPrice, qty, description, accountId} = req.body
 
         const expenditure = await Expenditure.findById(req.params.id)
+        const account = await Account.findById(accountId)
 
         if (expenditure){
+            const diff = expenditure.itemPrice - itemPrice
             expenditure.itemPrice = itemPrice ? itemPrice : expenditure.itemPrice
             expenditure.qty = qty ? qty : expenditure.qty
             expenditure.description = description ? description : expenditure.description
+            account.total = account.total + diff
             await expenditure.save()
+            await account.save()
+
             res.status(200).json(expenditure)
         } else {
             res.status(404).json({ errors: [{msg: 'Такой статьи расходов не найдено'}] })
@@ -181,10 +194,12 @@ module.exports.removeExpenditure = async (req, res) => {
     try {
         const expToDelete = await Expenditure.findById(req.params.id)
         const category = await ExpenditureCategory.findById(expToDelete.category).populate('items')
+        const account = await Account.findById(expToDelete.account)
         await Expenditure.findByIdAndRemove(req.params.id)
         category.items = category.items.filter(p => p._id.toString() !== req.params.id.toString())
-        console.log(category.items)
         await category.save()
+        account.total = account.total + expToDelete.itemPrice
+        await account.save()
         res.status(200).json({ message: 'Успешно удалено'})
     }
     catch (e) {

@@ -1,10 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ExpenditureService} from "../../shared/services/expenditure.service";
-import {ExpenditureCategory} from "../../shared/interfaces";
+import {Expenditure, ExpenditureCategory} from "../../shared/interfaces";
 import {Subscription} from "rxjs/internal/Subscription";
 import {MatDialog} from "@angular/material/dialog";
 import {ExpenditureListComponent} from "./expenditure-list/expenditure-list.component";
 import {ExpenditureEditComponent} from "./expenditure-edit/expenditure-edit.component";
+import {CreateExpenditureComponent} from "./create-expenditure/create-expenditure.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-expenditure',
@@ -13,18 +15,50 @@ import {ExpenditureEditComponent} from "./expenditure-edit/expenditure-edit.comp
 })
 export class ExpenditureComponent implements OnInit, OnDestroy {
 
+
+  isPending = false
+  displayedColumns: string[] = [ 'date', 'time', 'category', 'itemPrice', 'description', 'edit', 'delete']
+
   expCategories: ExpenditureCategory[]
   expSub: Subscription
+
+  expenditures: Expenditure[]
+  expenditureSub: Subscription
+  toRefresh = false
+
   constructor(
     private expService: ExpenditureService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
+
+
+    this.isPending = true
     this.expSub = this.expService.getCategories()
       .subscribe(
         (categories: ExpenditureCategory[]) => {
           this.expCategories = categories
+        }
+      )
+    this.refresh()
+    this.expService.refreshSubject.subscribe(
+      (data) => {
+        if (data){
+          this.refresh()
+        }
+      }
+    )
+
+  }
+
+  refresh(){
+    this.expenditureSub = this.expService.getExpenditures()
+      .subscribe(
+        (exps: Expenditure[]) => {
+          this.expenditures = exps
+          this.isPending = false
         }
       )
   }
@@ -37,10 +71,34 @@ export class ExpenditureComponent implements OnInit, OnDestroy {
     this.dialog.open(ExpenditureEditComponent)
   }
 
+  onAddExpenditureDialog(){
+    this.dialog.open(CreateExpenditureComponent)
+  }
+
+  onDeleteExpenditure(id: string){
+    if (window.confirm('Точно удалить?')){
+      this.expService.deleteExpenditure(id).subscribe(
+        (data) => {
+          this.expService.refreshSubject.next(true)
+          this.snackBar.open(`${data.message}`, 'Ok', {
+            duration: 3000,
+            panelClass: 'my-custom-snackbar'
+          })
+        }
+      )
+    }
+
+  }
+
   ngOnDestroy(): void {
     if (this.expSub){
       this.expSub.unsubscribe()
     }
+    if (this.expenditureSub){
+      this.expenditureSub.unsubscribe()
+    }
   }
+
+
 
 }

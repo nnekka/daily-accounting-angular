@@ -1,3 +1,5 @@
+
+
 const mongoose = require('mongoose')
 
 //расход
@@ -13,6 +15,10 @@ const schema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    account: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account'
     }
 }, {
     timestamps: true

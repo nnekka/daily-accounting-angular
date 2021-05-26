@@ -19,6 +19,7 @@ import { TokenInterceptor } from "./shared/token.interceptor";
 import { ExpenditureComponent } from './components/expenditure/expenditure.component';
 import { ExpenditureListComponent } from './components/expenditure/expenditure-list/expenditure-list.component';
 import { ExpenditureEditComponent } from './components/expenditure/expenditure-edit/expenditure-edit.component';
+import { CreateExpenditureComponent } from './components/expenditure/create-expenditure/create-expenditure.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ExpenditureEditComponent } from './components/expenditure/expenditure-e
     CreateAccountComponent,
     ExpenditureComponent,
     ExpenditureListComponent,
-    ExpenditureEditComponent
+    ExpenditureEditComponent,
+    CreateExpenditureComponent
   ],
   imports: [
     BrowserModule,
