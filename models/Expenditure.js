@@ -3,12 +3,16 @@ const mongoose = require('mongoose')
 //расход
 const schema = new mongoose.Schema({
 
-    name: { type: String, required: true },
+    description: { type: String, default: '' },
     itemPrice: { type: Number, required: true },
-    quantity: { type: Number, default: 1 },
+    qty: { type: Number, default: 1 },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ExpenditureCategory'
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 }, {
     timestamps: true

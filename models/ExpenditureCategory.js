@@ -3,13 +3,11 @@ const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
 
-    name: { type: String, required: true },
+    name: {type: String, required: true},
     items: [
         {
-            id: String,
-            name: String,
-            itemPrice: Number,
-            qty: Number
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Expenditure'
         }
     ],
     user: {

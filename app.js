@@ -7,6 +7,7 @@ const userRoutes = require('./routes/auth')
 const accountsRoutes = require('./routes/accounts')
 const currencyRoutes = require('./routes/currency')
 const expenditureCategoriesRoutes = require('./routes/expenditureCategories')
+const expendituresRoutes = require('./routes/expenditures')
 
 const app = express()
 
@@ -18,6 +19,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/accounts', accountsRoutes)
 app.use('/api/currency', currencyRoutes)
 app.use('/api/expCategories', expenditureCategoriesRoutes)
+app.use('/api/expenditures', expendituresRoutes)
 
 
 app.use(middleware.errorHandlerGlobal)
