@@ -6,7 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {Account} from "../../../shared/interfaces";
 import {AccountService} from "../../../shared/services/account.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MaterialService} from "../../../shared/services/material.service";
 
 @Component({
   selector: 'app-create-expenditure',
@@ -31,7 +31,7 @@ export class CreateExpenditureComponent implements OnInit {
     private accountService: AccountService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackBar: MatSnackBar
+    private matService: MaterialService
   ) {
   }
 
@@ -93,13 +93,10 @@ export class CreateExpenditureComponent implements OnInit {
   onSubmit() {
     const accountSum = this.accounts.find(p => p._id.toString() === this.selectedAccountId)
       ? this.accounts.find(p => p._id.toString() === this.selectedAccountId).total
-      : this.accounts.find(p => p._id.toString() === this.expenditureToEdit.account)
-      console.log(accountSum)
+      : this.accounts.find(p => p._id.toString() === this.expenditureToEdit.account).total
+
     if (this.form.value.itemPrice > accountSum) {
-      this.snackBar.open(`На этом счету не хватает денег :(`, 'Ok', {
-        duration: 3000,
-        panelClass: 'my-custom-snackbar'
-      })
+      this.matService.showMessage(`На этом счету не хватает денег :(`)
     } else {
       if (this.editMode) {
         this.expService.updateExpenditure(

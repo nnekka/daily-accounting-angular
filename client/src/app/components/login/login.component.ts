@@ -3,8 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/services/auth.service";
 import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 import {User} from "../../shared/interfaces";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Subscription} from "rxjs/internal/Subscription";
+import {MaterialService} from "../../shared/services/material.service";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private matService: MaterialService
   ) {}
 
   ngOnInit(): void {
@@ -44,20 +44,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.route.queryParams.subscribe(
       (params: Params) => {
         if (params['registered']){
-          this.snackBar.open('Теперь вы можете залогиниться', 'Ok', {
-            duration: 3000,
-            panelClass: 'my-custom-snackbar'
-          })
+          this.matService.showMessage('Теперь вы можете залогиниться')
         } else if (params['sessionFailed']){
-          this.snackBar.open('Время сессии истекло, залогиньтесь опять', 'Ok', {
-            duration: 3000,
-            panelClass: 'my-custom-snackbar'
-          })
+          this.matService.showMessage('Время сессии истекло, залогиньтесь опять')
         } else if (params['accessDenied']){
-          this.snackBar.open('Залогиньтесь для этого действия', 'Ok', {
-            duration: 3000,
-            panelClass: 'my-custom-snackbar'
-          })
+          this.matService.showMessage('Залогиньтесь для этого действия')
         }
       }
     )

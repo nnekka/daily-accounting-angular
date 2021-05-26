@@ -6,6 +6,7 @@ import {CurrencyData} from "../../shared/interfaces";
 import {ErrorComponent} from "../error/error.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Account} from "../../shared/interfaces";
+import {MaterialService} from "../../shared/services/material.service";
 
 @Component({
   selector: 'app-accounts',
@@ -78,7 +79,6 @@ export class AccountsComponent implements OnInit {
           }
         )
     }
-
   }
 
 }

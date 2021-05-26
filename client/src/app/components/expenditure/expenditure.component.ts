@@ -6,7 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ExpenditureListComponent} from "./expenditure-list/expenditure-list.component";
 import {ExpenditureEditComponent} from "./expenditure-edit/expenditure-edit.component";
 import {CreateExpenditureComponent} from "./create-expenditure/create-expenditure.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MaterialService} from "../../shared/services/material.service";
 
 @Component({
   selector: 'app-expenditure',
@@ -29,7 +29,7 @@ export class ExpenditureComponent implements OnInit, OnDestroy {
   constructor(
     private expService: ExpenditureService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private matService: MaterialService
   ) {}
 
   ngOnInit(): void {
@@ -80,10 +80,7 @@ export class ExpenditureComponent implements OnInit, OnDestroy {
       this.expService.deleteExpenditure(id).subscribe(
         (data) => {
           this.expService.refreshSubject.next(true)
-          this.snackBar.open(`${data.message}`, 'Ok', {
-            duration: 3000,
-            panelClass: 'my-custom-snackbar'
-          })
+          this.matService.showMessage(`${data.message}`)
         }
       )
     }

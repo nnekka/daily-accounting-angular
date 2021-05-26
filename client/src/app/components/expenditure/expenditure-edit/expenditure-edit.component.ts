@@ -5,7 +5,8 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {ExpenditureCategory} from "../../../shared/interfaces";
 import {MatDialog} from "@angular/material/dialog";
 import {ExpenditureListComponent} from "../expenditure-list/expenditure-list.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MaterialService} from "../../../shared/services/material.service";
+
 
 @Component({
   selector: 'app-expenditure-edit',
@@ -24,7 +25,7 @@ export class ExpenditureEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar
+    private matService: MaterialService
   ) { }
 
   ngOnInit(): void {
@@ -69,10 +70,7 @@ export class ExpenditureEditComponent implements OnInit {
         .subscribe(
           (category: ExpenditureCategory) => {
             this.dialog.closeAll()
-            this.snackBar.open(`Категория ${category.name} успешно добавлена!`, 'Ok', {
-              duration: 3000,
-              panelClass: 'my-custom-snackbar'
-            })
+            this.matService.showMessage(`Категория ${category.name} успешно добавлена!`)
           }
         )
     }
