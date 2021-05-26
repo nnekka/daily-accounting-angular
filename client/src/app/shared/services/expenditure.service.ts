@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Expenditure, ExpenditureCategory} from "../interfaces";
 import {Observable} from "rxjs/internal/Observable";
@@ -11,54 +11,62 @@ import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
 export class ExpenditureService {
 
   expCategories: ExpenditureCategory[]
-  expCategoriesSubject: BehaviorSubject<ExpenditureCategory[]> = new BehaviorSubject<ExpenditureCategory[]>([])
+  expCategoriesSubject: BehaviorSubject<{categories: ExpenditureCategory[], amount: number}> =
+    new BehaviorSubject<{categories: ExpenditureCategory[], amount: number}>({categories: [], amount: 0})
 
   expenditures: Expenditure[]
   expenditureSubject: BehaviorSubject<Expenditure[]> = new BehaviorSubject<Expenditure[]>([])
 
-  toRefresh : boolean
+  toRefresh: boolean
   refreshSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   constructor(
     private http: HttpClient
-  ) {}
+  ) {
+  }
 
 
   //----------------------------------категории расходов begin-------------------------------------
 
-  getCategories(): Observable<ExpenditureCategory[]>{
-    return this.http.get<ExpenditureCategory[]>('/api/expCategories')
+  getCategories(categoriesPerPage: number, currentPage: number)
+    : Observable<{ categories: ExpenditureCategory[], amount: number }> {
+
+    const queryParams = `?pagesize=${categoriesPerPage}&page=${currentPage}`
+
+    return this.http.get<{ categories: ExpenditureCategory[], amount: number }>('/api/expCategories' + queryParams)
       .pipe(
-        tap (
-          (categories: ExpenditureCategory[]) => {
-            this.expCategoriesSubject.next(categories)
+        tap(
+          (response) => {
+            this.expCategoriesSubject.next(response)
           }
         )
       )
+
   }
 
-  getCategoryById(id: string): Observable<ExpenditureCategory>{
+  getCategoryById(id: string): Observable<ExpenditureCategory> {
     return this.http.get<ExpenditureCategory>(`/api/expCategories/${id}`)
   }
 
-  createExpCategory(name: string): Observable<ExpenditureCategory>{
+  createExpCategory(name: string): Observable<ExpenditureCategory> {
     return this.http.post<ExpenditureCategory>('/api/expCategories', {name})
   }
 
-  updateExpCategoryName(name: string, id: string): Observable<ExpenditureCategory>{
+  updateExpCategoryName(name: string, id: string): Observable<ExpenditureCategory> {
     return this.http.put<ExpenditureCategory>(`/api/expCategories/${id}`, {name})
   }
 
-  deleteCategory(id: string): Observable<{message: string}>{
-    return this.http.delete<{message: string}>(`/api/expCategories/${id}`)
+  deleteCategory(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`/api/expCategories/${id}`)
   }
+
   //----------------------------------категории расходов end-------------------------------------
   //-----------------------------------расходы begin---------------------------------------------
 
-  getExpenditures(): Observable<Expenditure[]>{
+  getExpenditures(): Observable<Expenditure[]> {
     return this.http.get<Expenditure[]>('/api/expenditures')
       .pipe(
-        tap (
+        tap(
           (exps: Expenditure[]) => {
             this.expenditureSubject.next(exps)
           }
@@ -66,20 +74,20 @@ export class ExpenditureService {
       )
   }
 
-  getExpenditure(id: string): Observable<Expenditure>{
+  getExpenditure(id: string): Observable<Expenditure> {
     return this.http.get<Expenditure>(`/api/expenditures/${id}`)
   }
 
-  addExpenditure(itemPrice: number, description: string, categoryId: string, accountId: string): Observable<Expenditure>{
+  addExpenditure(itemPrice: number, description: string, categoryId: string, accountId: string): Observable<Expenditure> {
     return this.http.post<Expenditure>('/api/expenditures', {itemPrice, description, categoryId, accountId})
   }
 
-  updateExpenditure(itemPrice: number, description: string, accountId: string, expId: string): Observable<Expenditure>{
+  updateExpenditure(itemPrice: number, description: string, accountId: string, expId: string): Observable<Expenditure> {
     return this.http.put<Expenditure>(`/api/expenditures/${expId}`, {itemPrice, description, accountId})
   }
 
-  deleteExpenditure(id: string): Observable<{message: string}>{
-    return this.http.delete<{message: string}>(`/api/expenditures/${id}`)
+  deleteExpenditure(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`/api/expenditures/${id}`)
   }
 
   //-----------------------------------расходы end---------------------------------------------

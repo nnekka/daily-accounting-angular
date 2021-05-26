@@ -37,8 +37,8 @@ export class CreateExpenditureComponent implements OnInit {
 
   ngOnInit(): void {
     this.expService.expCategoriesSubject.subscribe(
-      (expCategories: ExpenditureCategory[]) => {
-        this.expCategories = expCategories
+      (response) => {
+        this.expCategories = response.categories
       }
     )
     this.initForm()
@@ -48,7 +48,6 @@ export class CreateExpenditureComponent implements OnInit {
       .subscribe(
         (accounts: Account[]) => {
           this.accounts = accounts
-
         }
       )
 

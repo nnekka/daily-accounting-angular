@@ -21,7 +21,15 @@
       <button (click)="onCloseDialog()">OK</button>
     </mat-action-row>
   </mat-accordion>
+
+  <mat-paginator
+    [length]="totalCategories"
+    [pageSize]="categoriesPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangedPage($event)"
+  ></mat-paginator>
 </div>
+
 
 
 <ng-template #empty>

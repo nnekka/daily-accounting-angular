@@ -4,6 +4,7 @@ import {ExpenditureCategory} from "../../../shared/interfaces";
 import {Subscription} from "rxjs/internal/Subscription";
 import {MatDialog} from "@angular/material/dialog";
 import {MaterialService} from "../../../shared/services/material.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-expenditure-list',
@@ -16,6 +17,12 @@ export class ExpenditureListComponent implements OnInit, OnDestroy {
   expSub: Subscription
   isPending = false
 
+  //pagination
+  totalCategories: number
+  categoriesPerPage = 2
+  pageSizeOptions = [1, 2, 5, 10]
+  currentPage = 1
+
   constructor(
     private expService: ExpenditureService,
     public dialog: MatDialog,
@@ -24,15 +31,17 @@ export class ExpenditureListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isPending = true
-    this.refresh()
+    this.refresh(this.categoriesPerPage, this.currentPage)
+
   }
 
-  refresh(){
-    this.expSub = this.expService.getCategories()
+  refresh(perPage: number, curr: number){
+    this.expSub = this.expService.getCategories(perPage, curr)
       .subscribe(
-        (categories: ExpenditureCategory[]) => {
-          this.expCategories = categories
+        (response) => {
+          this.expCategories = response.categories
           this.isPending = false
+          this.totalCategories = response.amount
         }
       )
   }
@@ -40,7 +49,7 @@ export class ExpenditureListComponent implements OnInit, OnDestroy {
   onDeleteCategory(id: string){
     this.expService.deleteCategory(id).subscribe(
       (data) => {
-        this.refresh()
+        this.refresh(this.categoriesPerPage, this.currentPage)
         this.matService.showMessage(`${data.message}`)
       }
     )
@@ -48,6 +57,12 @@ export class ExpenditureListComponent implements OnInit, OnDestroy {
 
   onCloseDialog(){
     this.dialog.closeAll()
+  }
+
+  onChangedPage(pageData: PageEvent){
+    this.currentPage = pageData.pageIndex + 1
+    this.categoriesPerPage = pageData.pageSize
+    this.refresh(this.categoriesPerPage, this.currentPage)
   }
 
   ngOnDestroy(): void {

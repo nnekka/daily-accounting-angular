@@ -26,6 +26,7 @@ export class ExpenditureComponent implements OnInit, OnDestroy {
   expenditureSub: Subscription
   toRefresh = false
 
+
   constructor(
     private expService: ExpenditureService,
     public dialog: MatDialog,
@@ -36,10 +37,11 @@ export class ExpenditureComponent implements OnInit, OnDestroy {
 
 
     this.isPending = true
-    this.expSub = this.expService.getCategories()
+    this.expSub = this.expService.getCategories(100,1)
       .subscribe(
-        (categories: ExpenditureCategory[]) => {
-          this.expCategories = categories
+        (response) => {
+          this.expCategories = response.categories
+          console.log(this.expCategories)
         }
       )
     this.refresh()

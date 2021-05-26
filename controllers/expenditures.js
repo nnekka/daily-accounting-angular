@@ -7,6 +7,9 @@ const {validationResult} = require('express-validator')
 
 //получение всех категорий расходов
 module.exports.getExpCategories = async (req, res) => {
+    const pageSize = +req.query.pagesize
+    const currentPage = +req.query.page
+
     try {
         const categories = await ExpenditureCategory.find({user: req.user.id})
         res.status(200).json(categories)
