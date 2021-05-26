@@ -12,3 +12,4 @@ module.exports.errorHandlerGlobal = (error, request, response, next) => {
     }
     next(error)
 }
+

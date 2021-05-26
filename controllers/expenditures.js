@@ -11,8 +11,20 @@ module.exports.getExpCategories = async (req, res) => {
     const currentPage = +req.query.page
 
     try {
-        const categories = await ExpenditureCategory.find({user: req.user.id})
-        res.status(200).json(categories)
+        if (pageSize && currentPage) {
+            let categories = await ExpenditureCategory
+                .find({user: req.user.id})
+                .skip(pageSize * (currentPage - 1))
+                .limit(pageSize)
+
+            const categoriesLength = await ExpenditureCategory.countDocuments()
+            res.status(200).json({categories: categories, amount: categoriesLength})
+        } else {
+            let categories = await ExpenditureCategory.find({user: req.user.id})
+            console.log(query)
+            res.status(200).json(categories)
+        }
+
     }
 
     catch (e) {
