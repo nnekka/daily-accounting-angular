@@ -20,6 +20,10 @@ import { ExpenditureComponent } from './components/expenditure/expenditure.compo
 import { ExpenditureListComponent } from './components/expenditure/expenditure-list/expenditure-list.component';
 import { ExpenditureEditComponent } from './components/expenditure/expenditure-edit/expenditure-edit.component';
 import { CreateExpenditureComponent } from './components/expenditure/create-expenditure/create-expenditure.component';
+import { GainsComponent } from './components/gains/gains.component';
+import { GainsCategoriesComponent } from './components/gains/gains-categories/gains-categories.component';
+import { CreateGainCategoryComponent } from './components/gains/create-gain-category/create-gain-category.component';
+import { CreateGainItemComponent } from './components/gains/create-gain-item/create-gain-item.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { CreateExpenditureComponent } from './components/expenditure/create-expe
     ExpenditureComponent,
     ExpenditureListComponent,
     ExpenditureEditComponent,
-    CreateExpenditureComponent
+    CreateExpenditureComponent,
+    GainsComponent,
+    GainsCategoriesComponent,
+    CreateGainCategoryComponent,
+    CreateGainItemComponent
   ],
   imports: [
     BrowserModule,

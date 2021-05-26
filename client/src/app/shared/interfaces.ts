@@ -1,6 +1,6 @@
 
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   token: string;
@@ -12,7 +12,7 @@ export interface Account {
   total: number;
   currency: Currency;
   user: string;
-  id?: string;
+  _id?: string;
   createdAt: Date;
 }
 export enum Currency {
@@ -32,7 +32,7 @@ export interface ExpenditureCategory {
 }
 
 export interface Expenditure {
-  id?: string;
+  _id?: string;
   description: string;
   qty: number;
   itemPrice: number;

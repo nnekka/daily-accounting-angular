@@ -91,6 +91,7 @@ export class CreateExpenditureComponent implements OnInit {
   }
 
   onSubmit() {
+
     const accountSum = this.accounts.find(p => p._id.toString() === this.selectedAccountId)
       ? this.accounts.find(p => p._id.toString() === this.selectedAccountId).total
       : this.accounts.find(p => p._id.toString() === this.expenditureToEdit.account).total
