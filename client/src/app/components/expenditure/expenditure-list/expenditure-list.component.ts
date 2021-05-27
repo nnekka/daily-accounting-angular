@@ -19,8 +19,8 @@ export class ExpenditureListComponent implements OnInit, OnDestroy {
 
   //pagination
   totalCategories: number
-  categoriesPerPage = 2
-  pageSizeOptions = [1, 2, 5, 10]
+  categoriesPerPage = 10
+  pageSizeOptions = [5, 10]
   currentPage = 1
 
   constructor(
