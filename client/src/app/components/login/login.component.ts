@@ -59,11 +59,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         (user: User) => {
           this.router.navigate(['/accounts'])
-        },
-        error => {
-          this.form.reset()
-          console.log('Ошибка при логине в логин компоненте')
-
         }
       )
   }

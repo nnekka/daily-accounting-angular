@@ -11,6 +11,7 @@ import { AuthGuard } from "./shared/auth.guard";
 import { ExpenditureEditComponent } from "./components/expenditure/expenditure-edit/expenditure-edit.component";
 import {CreateExpenditureComponent} from "./components/expenditure/create-expenditure/create-expenditure.component";
 import {GainsComponent} from "./components/gains/gains.component";
+import {CreateGainCategoryComponent} from "./components/gains/create-gain-category/create-gain-category.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,8 @@ const routes: Routes = [
       {path: 'create-expenditure', component: CreateExpenditureComponent, canActivate: [AuthGuard]},
       {path: 'edit-expenditure/:id', component: CreateExpenditureComponent, canActivate: [AuthGuard]},
       {path: 'gains', component: GainsComponent, canActivate: [AuthGuard]},
+      {path: 'create-gainCategory', component: CreateGainCategoryComponent, canActivate: [AuthGuard]},
+      {path: 'edit-gainCategory/:id', component: CreateGainCategoryComponent, canActivate: [AuthGuard]}
     ]
   }
 ];

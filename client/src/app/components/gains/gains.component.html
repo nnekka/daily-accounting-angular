@@ -1,1 +1,27 @@
-<p>gains works!</p>
+
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon>pets</mat-icon>
+    </button>
+    <span class="menu-spacer"></span>
+
+    <button mat-button [matMenuTriggerFor]="menu" color="primary">Категории доходов</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openDialog()">
+        Все категории
+      </button>
+      <button mat-menu-item (click)="onAddCategoryDialog()">Добавить категорию</button>
+    </mat-menu>
+
+    <button mat-button (click)="onAddGainDialog()">
+      <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
+      Новый доход
+    </button>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <span style="font-size: 12px;" class="container">Контролируй свои деньги :)</span>
+  </mat-toolbar-row>
+
+</mat-toolbar>

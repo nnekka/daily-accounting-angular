@@ -40,10 +40,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             queryParams: {
               registered: true
             }
-          }),
-            error => {
-              console.log('Ошибка при регистрации')
-            }
+          })
         }
       )
   }

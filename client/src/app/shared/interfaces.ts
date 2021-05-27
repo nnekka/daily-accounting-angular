@@ -41,3 +41,10 @@ export interface Expenditure {
   updatedAt: Date;
   account: string;
 }
+
+export interface GainCategory {
+  _id?: string;
+  items: string[];
+  name: string;
+}
+

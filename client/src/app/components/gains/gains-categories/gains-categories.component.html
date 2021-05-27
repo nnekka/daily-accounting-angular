@@ -1,1 +1,35 @@
-<p>gains-categories works!</p>
+<h2>Категории доходов</h2>
+<mat-spinner *ngIf="isPending"></mat-spinner>
+
+<div *ngIf="gainCategories">
+  <mat-accordion multi="true" *ngIf="gainCategories.length >0; else empty">
+    <mat-expansion-panel
+      *ngFor="let category of gainCategories">
+      <mat-expansion-panel-header>{{category.name}}</mat-expansion-panel-header>
+      <mat-action-row>
+        <a
+          mat-button color="primary"
+          routerLink="/edit-gainCategory/{{category._id}}"
+          (click)="dialog.closeAll()"
+        >
+          EDIT
+        </a>
+        <button mat-button color="warn" (click)="onDeleteCategory(category._id)">DELETE</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-action-row>
+      <button (click)="dialog.closeAll()">OK</button>
+    </mat-action-row>
+  </mat-accordion>
+
+  <!--<mat-paginator-->
+    <!--[length]="totalCategories"-->
+    <!--[pageSize]="categoriesPerPage"-->
+    <!--[pageSizeOptions]="pageSizeOptions"-->
+    <!--(page)="onChangedPage($event)"-->
+  <!--&gt;</mat-paginator>-->
+</div>
+
+<ng-template #empty>
+  <p>Нет категорий</p>
+</ng-template>

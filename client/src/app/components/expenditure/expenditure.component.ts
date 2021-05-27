@@ -41,7 +41,6 @@ export class ExpenditureComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           this.expCategories = response.categories
-          console.log(this.expCategories)
         }
       )
     this.refresh()
