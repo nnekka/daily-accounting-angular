@@ -7,7 +7,7 @@ const {validationResult} = require('express-validator')
 
 module.exports.getGains = async (req, res) => {
     try {
-        const gains = await Gain.find({ user: req.user.id })
+        const gains = await Gain.find({ user: req.user.id }).populate('category')
         res.status(200).json(gains)
     }
     catch (e) {

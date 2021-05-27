@@ -67,7 +67,7 @@ export class CreateGainCategoryComponent implements OnInit {
         .subscribe(
           () => this.router.navigate(['/gains'], {
             queryParams: {
-              gainUpdated: true
+              gainCategoryUpdated: true
             }
           })
         )

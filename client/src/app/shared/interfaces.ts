@@ -48,3 +48,10 @@ export interface GainCategory {
   name: string;
 }
 
+export interface Gain {
+  _id: string;
+  sum: number;
+  category: string;
+  account: string;
+  createdAt: Date;
+}
