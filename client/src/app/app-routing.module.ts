@@ -13,6 +13,11 @@ import {CreateExpenditureComponent} from "./components/expenditure/create-expend
 import {GainsComponent} from "./components/gains/gains.component";
 import {CreateGainCategoryComponent} from "./components/gains/create-gain-category/create-gain-category.component";
 import {CreateGainItemComponent} from "./components/gains/create-gain-item/create-gain-item.component";
+import {OverviewsComponent} from "./components/overviews/overviews.component";
+import {GainsReportComponent} from "./components/overviews/gains-report/gains-report.component";
+import {ExpReportComponent} from "./components/overviews/exp-report/exp-report.component";
+import {BalanceReportComponent} from "./components/overviews/balance-report/balance-report.component";
+import {MainOverviewsComponent} from "./components/overviews/main-overviews/main-overviews.component";
 
 const routes: Routes = [
   {
@@ -35,7 +40,12 @@ const routes: Routes = [
       {path: 'gains', component: GainsComponent, canActivate: [AuthGuard]},
       {path: 'create-gainCategory', component: CreateGainCategoryComponent, canActivate: [AuthGuard]},
       {path: 'edit-gainCategory/:id', component: CreateGainCategoryComponent, canActivate: [AuthGuard]},
-      {path: 'edit-gain/:id', component: CreateGainItemComponent, canActivate: [AuthGuard]},
+      {path: '', component: OverviewsComponent, canActivate: [AuthGuard], children: [
+          {path: 'overviews', component: MainOverviewsComponent, canActivate: [AuthGuard]},
+          {path: 'gains-report', component: GainsReportComponent, canActivate: [AuthGuard]},
+          {path: 'exp-report', component: ExpReportComponent, canActivate: [AuthGuard]},
+          {path: 'balance-report', component: BalanceReportComponent, canActivate: [AuthGuard]},
+        ]}
     ]
   }
 ];

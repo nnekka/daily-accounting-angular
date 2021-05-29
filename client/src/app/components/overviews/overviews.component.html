@@ -1,0 +1,28 @@
+
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon>pets</mat-icon>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="menu" color="primary">Отчет</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/gains-report">
+        Доход
+      </button>
+      <button mat-menu-item routerLink="/exp-report">
+        Расход
+      </button>
+      <button mat-menu-item routerLink="/balance-report">
+        Баланс
+      </button>
+    </mat-menu>
+
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <span style="font-size: 12px;" class="container">Контролируй свои деньги :)</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

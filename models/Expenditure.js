@@ -19,7 +19,8 @@ const schema = new mongoose.Schema({
     account: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account'
-    }
+    },
+    lastAccountSum: { type: Number }
 }, {
     timestamps: true
 })

@@ -157,6 +157,7 @@ module.exports.createExpenditure = async (req, res) => {
         if (!account){
             return res.status(404).json({ errors: [{ msg: 'Такого счета не существует'}] })
         }
+        const lastTotalSum = account.total - itemPrice
 
         const newExpenditure = new Expenditure({
             description,
@@ -164,7 +165,8 @@ module.exports.createExpenditure = async (req, res) => {
             qty,
             category: category._id,
             user: user._id,
-            account: account._id
+            account: account._id,
+            lastAccountSum: lastTotalSum
         })
         await newExpenditure.save()
         category.items = category.items.concat(newExpenditure._id)
@@ -191,6 +193,7 @@ module.exports.updateExpenditure = async (req, res) => {
             expenditure.qty = qty ? qty : expenditure.qty
             expenditure.description = description ? description : expenditure.description
             account.total = account.total + diff
+            expenditure.lastAccountSum = account.total
             await expenditure.save()
             await account.save()
 

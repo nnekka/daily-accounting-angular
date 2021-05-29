@@ -48,7 +48,6 @@ export class GainsComponent implements OnInit, OnDestroy {
         }
       }
     )
-
   }
 
   private getParams(){
@@ -62,7 +61,6 @@ export class GainsComponent implements OnInit, OnDestroy {
       }
     )
   }
-
 
   private refreshGains() {
     this.gainService.getGains()

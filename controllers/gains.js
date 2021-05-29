@@ -41,11 +41,14 @@ module.exports.createGain = async (req, res) => {
         if (!account){
             return error404Message(res, 'Такого счета не существует')
         }
+
+        const lastSumOnAccount = account.total + sum
         const newGain = new Gain({
             sum,
             category: category._id,
             account: account._id,
-            user: user._id
+            user: user._id,
+            lastAccountSum: lastSumOnAccount
 
         })
         await newGain.save()
@@ -72,11 +75,13 @@ module.exports.updateGain = async (req, res) => {
         if (gainToUpdate){
             const diff = gainToUpdate.sum - sum
             gainToUpdate.sum = sum
+
             const account = await Account.findById(gainToUpdate.account)
             if (!account){
                 return error404Message(res, 'Аккаунт не сущесвует или удален')
             }
             account.total = account.total - diff
+            gainToUpdate.lastAccountSum = account.total
             await gainToUpdate.save()
             await account.save()
             res.status(200).json(gainToUpdate)
