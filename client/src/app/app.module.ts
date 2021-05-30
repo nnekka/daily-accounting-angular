@@ -29,6 +29,9 @@ import { GainsReportComponent } from './components/overviews/gains-report/gains-
 import { ExpReportComponent } from './components/overviews/exp-report/exp-report.component';
 import { BalanceReportComponent } from './components/overviews/balance-report/balance-report.component';
 import { MainOverviewsComponent } from './components/overviews/main-overviews/main-overviews.component';
+import { DateFormComponent } from './components/overviews/date-form/date-form.component';
+import { GraphReportComponent } from './components/overviews/graph-report/graph-report.component';
+import { TableReportComponent } from './components/overviews/table-report/table-report.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { MainOverviewsComponent } from './components/overviews/main-overviews/ma
     GainsReportComponent,
     ExpReportComponent,
     BalanceReportComponent,
-    MainOverviewsComponent
+    MainOverviewsComponent,
+    DateFormComponent,
+    GraphReportComponent,
+    TableReportComponent
   ],
   imports: [
     BrowserModule,

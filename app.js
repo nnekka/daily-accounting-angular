@@ -10,6 +10,7 @@ const expenditureCategoriesRoutes = require('./routes/expenditureCategories')
 const expendituresRoutes = require('./routes/expenditures')
 const gainCategoriesRoutes = require('./routes/gainCategories')
 const gainsRoutes = require('./routes/gains')
+const overviewRoutes = require('./routes/overviews')
 
 const app = express()
 
@@ -24,6 +25,7 @@ app.use('/api/expCategories', expenditureCategoriesRoutes)
 app.use('/api/expenditures', expendituresRoutes)
 app.use('/api/gainCategories', gainCategoriesRoutes)
 app.use('/api/gains', gainsRoutes)
+app.use('/api/overviews', overviewRoutes)
 
 
 app.use(middleware.errorHandlerGlobal)

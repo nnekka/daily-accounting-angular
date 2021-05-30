@@ -18,6 +18,9 @@ import {GainsReportComponent} from "./components/overviews/gains-report/gains-re
 import {ExpReportComponent} from "./components/overviews/exp-report/exp-report.component";
 import {BalanceReportComponent} from "./components/overviews/balance-report/balance-report.component";
 import {MainOverviewsComponent} from "./components/overviews/main-overviews/main-overviews.component";
+import {DateFormComponent} from "./components/overviews/date-form/date-form.component";
+import {GraphReportComponent} from "./components/overviews/graph-report/graph-report.component";
+import {TableReportComponent} from "./components/overviews/table-report/table-report.component";
 
 const routes: Routes = [
   {
@@ -45,6 +48,13 @@ const routes: Routes = [
           {path: 'gains-report', component: GainsReportComponent, canActivate: [AuthGuard]},
           {path: 'exp-report', component: ExpReportComponent, canActivate: [AuthGuard]},
           {path: 'balance-report', component: BalanceReportComponent, canActivate: [AuthGuard]},
+          {path: 'date-form', component: DateFormComponent, canActivate: [AuthGuard]},
+          {path: 'date-form/:id', component: DateFormComponent, canActivate: [AuthGuard], pathMatch: 'full'},
+
+          //экспериментирую с отображением отчетов
+          {path: 'graph-report', component: GraphReportComponent, canActivate: [AuthGuard]},
+          {path: 'graph-report/:id', component: GraphReportComponent, canActivate: [AuthGuard]},
+          {path: 'table-report', component: TableReportComponent, canActivate: [AuthGuard]},
         ]}
     ]
   }

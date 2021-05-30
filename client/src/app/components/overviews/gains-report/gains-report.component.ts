@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AccountService} from "../../../shared/services/account.service";
+import {Account} from "../../../shared/interfaces";
 
 @Component({
   selector: 'app-gains-report',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GainsReportComponent implements OnInit {
 
-  constructor() { }
+  accounts: Account[]
+
+
+  constructor(
+    private accountService: AccountService
+  ) {}
 
   ngOnInit(): void {
+    this.accountService.accountsSubject.subscribe(
+      (accounts: Account[]) => {
+        if (accounts){
+          this.accounts = accounts
+          console.log(this.accounts)
+        }
+      }
+    )
   }
+
+
 
 }

@@ -1,1 +1,106 @@
-<p>main-overviews works!</p>
+<mat-card>
+  <mat-card-title>Выберите параметры отчета</mat-card-title>
+  <mat-card-content>
+    <form
+      [formGroup]="form"
+      (submit)="onSubmit()"
+    >
+      <p>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Начало периода</mat-label>
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pickerStart"
+            placeholder="Start date"
+            formControlName="startDate"
+
+          >
+          <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button (click)="pickerStart.open()" type="button">Open</button>
+      </p>
+
+      <p>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Конец периода</mat-label>
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pickerEnd"
+            placeholder="Start date"
+            formControlName="endDate"
+
+          >
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button (click)="pickerEnd.open()" type="button">Open</button>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <div>
+            <mat-label></mat-label>
+          </div>
+          <mat-label>Как отобразить отчет</mat-label>
+          <mat-select formControlName="view">
+            <mat-option></mat-option>
+            <mat-option
+              *ngFor="let view of viewArray"
+              [value]="view == 'График(диаграмма)' ? 'graph' : 'table'"
+            >
+              {{view}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <div>
+            <mat-label></mat-label>
+          </div>
+          <mat-label>Что исследуем:</mat-label>
+          <mat-select formControlName="expGain">
+            <mat-option></mat-option>
+            <mat-option
+              *ngFor="let item of expGainarray"
+              [value]="item == 'Доходы'
+                ? 'gain'
+                : item == 'Расходы'
+                  ? 'exp'
+                  : 'total'
+              "
+            >
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <div>
+            <mat-label></mat-label>
+          </div>
+          <mat-label>Какой счет исследуем</mat-label>
+          <mat-select formControlName="account">
+            <mat-option>Все счета</mat-option>
+            <mat-option
+              *ngFor="let item of accounts"
+              [value]="item._id"
+            >
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+
+
+      <p>
+        <button mat-raised-button type="submit">Построить отчет</button>
+      </p>
+
+    </form>
+  </mat-card-content>
+</mat-card>

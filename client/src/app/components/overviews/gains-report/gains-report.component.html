@@ -1,1 +1,44 @@
-<p>gains-report works!</p>
+<button mat-raised-button [matMenuTriggerFor]="menu" color="primary">Построить график</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/date-form" [queryParams]="{prop: 'gain graph'}">
+    Доход общий
+  </button >
+  <button mat-menu-item [matMenuTriggerFor]="accountsList">
+    Доход по каждому счету
+  </button>
+</mat-menu>
+
+<mat-menu #accountsList="matMenu">
+  <button
+    mat-menu-item
+    *ngFor="let account of accounts"
+    routerLink="/date-form/{{account._id}}"
+    [queryParams]="{prop: 'gain graph'}"
+  >
+    {{account.name}}
+  </button>
+</mat-menu>
+
+<ng-template #empty>
+  <mat-menu #accountsList="matMenu">
+    <button mat-menu-item>Нет аккаунтов</button>
+  </mat-menu>
+</ng-template>
+
+<div class="pt3">
+  <button mat-raised-button [matMenuTriggerFor]="menuTable" color="primary">Составить отчетную таблицу</button>
+  <mat-menu #menuTable="matMenu">
+    <button mat-menu-item routerLink="/date-form" [queryParams]="{prop: 'gain table'}">
+      Доход общий
+    </button >
+    <button mat-menu-item [matMenuTriggerFor]="did">
+      Доход по каждому счету
+    </button>
+  </mat-menu>
+
+  <mat-menu #did="matMenu">
+    <button mat-menu-item>Birds</button>
+    <button mat-menu-item>Mammals</button>
+  </mat-menu>
+
+</div>

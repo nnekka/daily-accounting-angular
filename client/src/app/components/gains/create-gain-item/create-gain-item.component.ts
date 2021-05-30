@@ -107,7 +107,7 @@ export class CreateGainItemComponent implements OnInit {
         this.selectedGainCategoryId,
         this.selectedAccountId
       ).subscribe(
-        () => {
+        (data) => {
           this.dialog.closeAll()
           this.expService.refreshSubject.next(true)
         }
