@@ -1,1 +1,14 @@
-<p>graph-report works!</p>
+<h2>
+  {{params.expGain == 'gain'
+    ? 'Доходы за период'
+    : params.expGain == 'exp'
+        ? 'Расходы за период'
+        : 'Распределение расходов и доходов'
+  }}
+  {{params.startDate | date:'dd.MM.YYYY'}} - {{params.endDate | date:'dd.MM.YYYY'}}
+  по счету {{account ? account.name : 'NO'}}
+</h2>
+
+<div style="width:100%;">
+  <canvas id="myChart" #mychart ></canvas>
+</div>

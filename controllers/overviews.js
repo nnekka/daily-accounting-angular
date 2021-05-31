@@ -19,6 +19,7 @@ module.exports.getGainsOfPeriod = async (req, res) => {
                     '$lt': req.query.endDate
                 }
             })
+            .populate('category')
 
         res.status(200).json(gains)
     }
@@ -40,6 +41,7 @@ module.exports.getGainsOfPeriodOfOneAccount = async (req, res) => {
                     '$lt': req.query.endDate
                 }
             })
+            .populate('category')
 
         res.status(200).json(gains)
     }
@@ -60,6 +62,7 @@ module.exports.getExpendituresOfPeriod = async (req, res) => {
                     '$lt': req.query.endDate
                 }
             })
+            .populate('category')
 
         res.status(200).json(expenditures)
     }
@@ -81,6 +84,7 @@ module.exports.getExpendituresOfPeriodOfOneAccount = async (req, res) => {
                     '$lt': req.query.endDate
                 }
             })
+            .populate('category')
 
         res.status(200).json(expenditures)
     }

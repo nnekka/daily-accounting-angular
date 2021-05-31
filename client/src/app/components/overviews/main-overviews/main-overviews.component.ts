@@ -61,9 +61,21 @@ export class MainOverviewsComponent implements OnInit {
         }
       })
     } else if (this.form.value.view === 'table' && this.form.value.account !== null){
-
+      this.router.navigate([`/table-report/${this.form.value.account}`], {
+        queryParams: {
+          startDate: this.form.value.startDate.toISOString(),
+          endDate: this.form.value.endDate.toISOString(),
+          expGain: this.form.value.expGain
+        }
+      })
     } else {
-
+      this.router.navigate([`/table-report`], {
+        queryParams: {
+          startDate: this.form.value.startDate,
+          endDate: this.form.value.endDate,
+          expGain: this.form.value.expGain
+        }
+      })
     }
   }
 }

@@ -55,6 +55,7 @@ const routes: Routes = [
           {path: 'graph-report', component: GraphReportComponent, canActivate: [AuthGuard]},
           {path: 'graph-report/:id', component: GraphReportComponent, canActivate: [AuthGuard]},
           {path: 'table-report', component: TableReportComponent, canActivate: [AuthGuard]},
+          {path: 'table-report/:id', component: TableReportComponent, canActivate: [AuthGuard]},
         ]}
     ]
   }
