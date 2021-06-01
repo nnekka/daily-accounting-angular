@@ -48,6 +48,7 @@ export class GraphReportComponent implements OnInit {
             endDate: session.endDate,
             expGain: session.expGain
           }
+          console.log(this.params)
           if (account.id){
             this.accountService.getAccountById(account.id).subscribe(
               (account: Account) => {
@@ -55,6 +56,7 @@ export class GraphReportComponent implements OnInit {
               }
             )
           }
+
           if (account.id && this.params.expGain === 'gain') {
             this.overviewService.getAccountGains(this.params.startDate, this.params.endDate, account.id)
               .pipe(
@@ -115,6 +117,24 @@ export class GraphReportComponent implements OnInit {
               .subscribe(
                 (data) => {
                   this.createPieDiagram(Object.keys(data), Object.values(data))
+                }
+              )
+          }
+
+          if (account.id && this.params.expGain === 'total') {
+            this.overviewService.getAccountGainsAndExps(this.params.startDate, this.params.endDate, account.id)
+              .subscribe(
+                (data) => {
+                  this.createPieDiagram(['Доходы', 'Расходы'], [`${data.totalGains}`, `${data.totalExps}`])
+                }
+              )
+          }
+
+          if (!account.id && this.params.expGain === 'total') {
+            this.overviewService.getTotalGainsAndExps(this.params.startDate, this.params.endDate)
+              .subscribe(
+                (data) => {
+                  this.createPieDiagram(['Доходы', 'Расходы'], [`${data.totalGains}`, `${data.totalExps}`])
                 }
               )
           }

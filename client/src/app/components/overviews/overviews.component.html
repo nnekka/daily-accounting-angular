@@ -5,17 +5,33 @@
       <mat-icon>pets</mat-icon>
     </button>
 
-    <button mat-button [matMenuTriggerFor]="menu" color="primary">Отчет</button>
+    <button mat-button [matMenuTriggerFor]="menu" color="primary">Отчеты</button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/gains-report">
-        Доход
+      <button
+        mat-menu-item
+        routerLink="/balance-report"
+        #tooltip="matTooltip"
+        matTooltip="Показать график движения всех средств за период"
+        matTooltipPosition="right"
+        matTooltipHideDelay="100000"
+        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+        class="example-button"
+      >
+        Баланс общий
       </button>
-      <button mat-menu-item routerLink="/exp-report">
-        Расход
+      <button mat-menu-item [matMenuTriggerFor]="accountsList">
+        Выбрать счет
       </button>
-      <button mat-menu-item routerLink="/balance-report">
-        Баланс
-      </button>
+      <mat-menu #accountsList="matMenu">
+        <button
+          mat-menu-item
+          *ngFor="let account of accounts"
+          routerLink="/balance-report/{{account._id}}"
+        >
+          {{account.name}}
+        </button>
+      </mat-menu>
+
     </mat-menu>
 
   </mat-toolbar-row>

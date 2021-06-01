@@ -55,3 +55,8 @@ export interface Gain {
   account: string;
   createdAt: Date;
 }
+
+export interface DataForChart {
+  lastAccountSum: number;
+  date: Date;
+}

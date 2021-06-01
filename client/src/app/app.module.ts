@@ -32,6 +32,7 @@ import { MainOverviewsComponent } from './components/overviews/main-overviews/ma
 import { DateFormComponent } from './components/overviews/date-form/date-form.component';
 import { GraphReportComponent } from './components/overviews/graph-report/graph-report.component';
 import { TableReportComponent } from './components/overviews/table-report/table-report.component';
+import { GraphComponent } from './components/overviews/balance-report/graph/graph.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { TableReportComponent } from './components/overviews/table-report/table-
     MainOverviewsComponent,
     DateFormComponent,
     GraphReportComponent,
-    TableReportComponent
+    TableReportComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,

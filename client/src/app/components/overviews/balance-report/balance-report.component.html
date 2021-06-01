@@ -1,1 +1,53 @@
-<p>balance-report works!</p>
+<div>
+  <form
+    [formGroup]="form"
+    (submit)="onSubmit()"
+  >
+    <p>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Начало периода</mat-label>
+        <input
+          matInput
+          type="text"
+          [matDatepicker]="pickerStart"
+          placeholder="Start date"
+          formControlName="startDate"
+
+        >
+        <mat-datepicker #pickerStart></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button (click)="pickerStart.open()" type="button">Open</button>
+    </p>
+
+    <p>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Конец периода</mat-label>
+        <input
+          matInput
+          type="text"
+          [matDatepicker]="pickerEnd"
+          placeholder="End date"
+          formControlName="endDate"
+
+        >
+        <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button (click)="pickerEnd.open()" type="button">Open</button>
+    </p>
+
+
+    <p>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+      >
+        Построить график
+      </button>
+    </p>
+
+  </form>
+</div>
+
+
+
