@@ -18,5 +18,13 @@ Daily-accounting is an attempt to create a user-friendly application for keeping
 
 Домашняя бухгалтерия по-nnekkовски! 
 
-Структура (да и не только, что уж тут) приложения ужас. Поняла это когда число компонентов стало стремительно расти. :fearful: Видимо, будет вторая версия.
-Или буду рефакторить эту.
+Промежуточный вариант
+
+![Dashboard](https://github.com/nnekka/images/blob/master/Screenshot_4.png)
+![Dashboard](https://github.com/nnekka/images/blob/master/Screenshot_5.png)
+![Dashboard](https://github.com/nnekka/images/blob/master/Screenshot_6.png)
+![Dashboard](https://github.com/nnekka/images/blob/master/Screenshot_7.png)
+![Dashboard](https://github.com/nnekka/images/blob/master/Screenshot_8.png)
+![Dashboard](https://github.com/nnekka/images/blob/master/Screenshot_9.png)
+
+
